@@ -1,4 +1,11 @@
-﻿using Ecom.Instrct;
+//class for crud operation
+// c- create a profile in database
+// r- read detail from database
+// u- update database with new data
+// d- remove data from database
+
+
+using Ecom.Instrct;
 using Ecom.Ppty;
 using Microsoft.AspNetCore.Mvc;
 using System;
@@ -12,7 +19,7 @@ namespace Ecom.Controllers
 {
     [Route("api/Ecom")]
     [ApiController]
-    public class CrudOpp : ControllerBase
+    public class CrudOpp : ControllerBase // ControllerBase for Crud operation
     {
         private readonly IInstructions proData;
         private readonly IMapper mapper;
@@ -24,7 +31,7 @@ namespace Ecom.Controllers
             mapper=map;
         }
        
-
+        // to get the last purchases in database
         [HttpGet]
         public ActionResult<IEnumerable<PurchaseReadDtos>> GetLastFivePurchase()
         {
@@ -35,6 +42,7 @@ namespace Ecom.Controllers
             }
             return NotFound();
         }
+        // get the data from database by id
         [HttpGet("{id123}")]
         public ActionResult<WishListReadDto> GetWishlistByUserId(int id)
         {
@@ -45,6 +53,8 @@ namespace Ecom.Controllers
             }
             return NotFound();
         }
+        
+        // create profile in database using httppost
         [HttpPost]
         public ActionResult<ProfilesReadDto> CreateProfile(ProfileCreateDtos createProfile)
         {
@@ -55,6 +65,7 @@ namespace Ecom.Controllers
             var profilesReadDto = mapper.Map<ProfilesReadDto>(profileData);
             return Ok(profilesReadDto);
         }
+        // delete profile by using id
         [HttpDelete("{id}")]
         public ActionResult DeleteProfile(int id)
         {
@@ -67,83 +78,6 @@ namespace Ecom.Controllers
             proData.SaveChanges();
             return NoContent();
         }
-        
-
-
-
-
-
-
-
-        /*public ActionResult<IEnumerable<EcomReadDtos>> GetAllProducts()
-        {
-
-           {
-               var prodDatas = proData.GetAllProducts();
-               return Ok(mapper.Map<IEnumerable<EcomReadDtos>>(prodDatas));
-           }
-
-       }*/
-        /*[HttpGet]
-        public ActionResult<IEnumerable<ProfilesReadDto>> GetProfiles()
-        {
-            var proDatas = proData.GetProfiles();
-            if (proDatas != null) {
-                return Ok(mapper.Map<IEnumerable<ProfilesReadDto>>(proDatas));
-            }
-            return NotFound();
-        }*/
-        /*[HttpGet("{profiles}/{id}")]
-        public ActionResult<ProfilesReadDto> GetProfileByUserId(int id)
-        {
-            var proDatas = proData.GetProfileByUserId(id);
-            if (proDatas != null)
-            {
-                return Ok(mapper.Map<ProfilesReadDto>(proDatas));
-            }
-            return NotFound();
-        }*/
-
-
-
-        /*[HttpGet("{profiles}/{id}/{wishList}")]
-
-        public ActionResult<IEnumerable<Ecomm>> GetWishList(int id, string wishlist)
-        {
-            if (wishlist == "Wishlists" || wishlist == "WISHLISTS" || wishlist == "wishlists")
-            {
-                var proDatas = proData.GetWishList();
-                return Ok(proDatas);
-
-            }
-            else
-            {
-                return BadRequest("Ivalid type");
-            }
-
-        }*/
-        /*[HttpGet("{userId}/{purchase}")]
-        public ActionResult<IEnumerable<Ecomm>> GetPurchase(int userid, string purchase)
-        {
-            var proDatas = proData.GetPurchase();
-            return Ok(proDatas);
-        }*/
-
-        /* [HttpPut("{id}")]
-         public ActionResult UpdateProfile(int id, ProfileUpdateDtos profileUpdateDtos)
-         {
-             var consumerProfile = proData.GetProfileByUserId(id);
-             if (consumerProfile == null)
-             {
-                 return NotFound();
-             }
-             mapper.Map(profileUpdateDtos, consumerProfile);
-             proData.UpdateProfile(consumerProfile);
-             proData.SaveChanges();
-             return NoContent();
-         }*/
-
-
 
     }
 }
