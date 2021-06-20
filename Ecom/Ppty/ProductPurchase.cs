@@ -9,6 +9,7 @@ namespace Ecom.Ppty
 {
     public class ProductPurchase
     {
+        // variables with key is Id
         [Key]
         public int Id { get; set; }
         [Required]
