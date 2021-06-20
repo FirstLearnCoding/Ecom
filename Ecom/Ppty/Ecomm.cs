@@ -8,7 +8,8 @@ namespace Ecom.Ppty
 {
     public class Ecomm
     {
-       
+        // variables for stor and access 
+        // It create a table in database with primary key is product name
         [Key]
         public string ProductName { get; set; }
         [Required]
